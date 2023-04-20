@@ -40,7 +40,13 @@
                         android:id="@+id/btnExecuteCommand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Execute Command"/>
+                        android:text="Execute in Current Shell"/>
+
+                    <Button
+                        android:id="@+id/btnExecuteCommandInNewShell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Execute in New Shell"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

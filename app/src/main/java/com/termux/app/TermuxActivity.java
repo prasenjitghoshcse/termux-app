@@ -218,14 +218,24 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
 
         setContentView(R.layout.activity_termux);
 
-        // Configure Execute Command button
-        Button btnExecuteCommand = findViewById(R.id.btnExecuteCommand);
-        btnExecuteCommand.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                executeCommandInDisplayedTerminal();
-            }
-        });
+        // Configure Execute Command buttons
+        {
+            Button btnExecuteCommand = findViewById(R.id.btnExecuteCommand);
+            btnExecuteCommand.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    executeCommandInDisplayedTerminal();
+                }
+            });
+
+            Button btnExecuteCommandInNewShell = findViewById(R.id.btnExecuteCommandInNewShell);
+            btnExecuteCommandInNewShell.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    executeCommandInNewTerminal();
+                }
+            });
+        }
 
         // Load termux shared preferences
         // This will also fail if TermuxConstants.TERMUX_PACKAGE_NAME does not equal applicationId
@@ -1035,5 +1045,17 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
     private void executeCommandInDisplayedTerminal() {
         TermuxSession tmpTermuxSession = mTermuxService.getActiveTermuxSession();
         tmpTermuxSession.executeCommandInDisplayedTerminal();
+    }
+
+    private void executeCommandInNewTerminal() {
+        Intent intent = new Intent();
+        intent.setClassName("com.termux", "com.termux.app.RunCommandService");
+        intent.setAction("com.termux.RUN_COMMAND");
+        intent.putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/usr/bin/top");
+        intent.putExtra("com.termux.RUN_COMMAND_ARGUMENTS", new String[]{"-n", "5"});
+        intent.putExtra("com.termux.RUN_COMMAND_WORKDIR", "/data/data/com.termux/files/home");
+        intent.putExtra("com.termux.RUN_COMMAND_BACKGROUND", false);
+        intent.putExtra("com.termux.RUN_COMMAND_SESSION_ACTION", "0");
+        startService(intent);
     }
 }

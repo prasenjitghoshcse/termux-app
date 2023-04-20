@@ -137,12 +137,12 @@ public class RunCommandService extends Service {
         // user knows someone tried to run a command in termux context, since it may be malicious
         // app or imported (tasker) plugin project and not the user himself. If a pending intent is
         // also sent, then its creator is also logged and shown.
-        errmsg = TermuxPluginUtils.checkIfAllowExternalAppsPolicyIsViolated(this, LOG_TAG);
-        if (errmsg != null) {
-            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), errmsg);
-            TermuxPluginUtils.processPluginExecutionCommandError(this, LOG_TAG, executionCommand, true);
-            return stopService();
-        }
+//        errmsg = TermuxPluginUtils.checkIfAllowExternalAppsPolicyIsViolated(this, LOG_TAG);
+//        if (errmsg != null) {
+//            executionCommand.setStateFailed(Errno.ERRNO_FAILED.getCode(), errmsg);
+//            TermuxPluginUtils.processPluginExecutionCommandError(this, LOG_TAG, executionCommand, true);
+//            return stopService();
+//        }
 
 
 
