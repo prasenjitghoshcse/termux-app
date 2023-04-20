@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.autofill.AutofillManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -53,6 +54,7 @@ import com.termux.shared.termux.interact.TextInputDialogUtils;
 import com.termux.shared.logger.Logger;
 import com.termux.shared.termux.TermuxUtils;
 import com.termux.shared.termux.settings.properties.TermuxAppSharedProperties;
+import com.termux.shared.termux.shell.command.runner.terminal.TermuxSession;
 import com.termux.shared.termux.theme.TermuxThemeUtils;
 import com.termux.shared.theme.NightMode;
 import com.termux.shared.view.ViewUtils;
@@ -215,6 +217,15 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_termux);
+
+        // Configure Execute Command button
+        Button btnExecuteCommand = findViewById(R.id.btnExecuteCommand);
+        btnExecuteCommand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                executeCommandInDisplayedTerminal();
+            }
+        });
 
         // Load termux shared preferences
         // This will also fail if TermuxConstants.TERMUX_PACKAGE_NAME does not equal applicationId
@@ -1021,4 +1032,8 @@ public final class TermuxActivity extends AppCompatActivity implements ServiceCo
         return intent;
     }
 
+    private void executeCommandInDisplayedTerminal() {
+        TermuxSession tmpTermuxSession = mTermuxService.getActiveTermuxSession();
+        tmpTermuxSession.executeCommandInDisplayedTerminal();
+    }
 }

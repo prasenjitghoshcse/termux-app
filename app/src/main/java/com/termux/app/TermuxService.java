@@ -956,4 +956,12 @@ public final class TermuxService extends Service implements AppShell.AppShellCli
         return mWantsToStop;
     }
 
+
+    TermuxSession getActiveTermuxSession() {
+        if(mShellManager.mTermuxSessions.size() > 0) {
+            return mShellManager.mTermuxSessions.get(0);
+        }
+
+        return null;
+    }
 }

@@ -293,4 +293,11 @@ public class TermuxSession {
 
     }
 
+    public void executeCommandInDisplayedTerminal() {
+//        String command = "pkg update -y && pkg upgrade -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Installer/Ubuntu/ubuntu.sh -O ubuntu.sh && chmod +x ubuntu.sh && bash ubuntu.sh && bash ./start-ubuntu.sh && cd / && ls\n";
+        String command = "ls\n";
+        byte[] theByteArray = command.getBytes();
+
+        mTerminalSession.write(theByteArray, 0, theByteArray.length);
+    }
 }
